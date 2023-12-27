@@ -1,6 +1,6 @@
 # bitcoin-docker
 
-A Docker container that runs [Bitcoin Core] in an external mode or in an internal (pruned) mode.
+A Docker container that runs [Bitcoin Core] in either an external mode or in an internal (pruned) mode.
 Containers in external mode synchronize with the Bitcoin network and broadcast transactions from internal mode
  containers.
 Containers in internal mode are isolated from the public internet and communicate over an internal network with external
