@@ -49,6 +49,8 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
+          args:
+            BITCOIN_VERSION: ${{ matrix.bitcoin_version }}
           target: ${{ matrix.target }}
           tags: |
             ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, matrix.bitcoin_version, matrix.target, steps.tags.outputs.DIGEST) || '' }}
