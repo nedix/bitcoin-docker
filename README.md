@@ -67,6 +67,11 @@ $ make test
 
 ### Build arguments
 
+| Variable                   |
+|----------------------------|
+| `ALPINE_VERSION`           |
+| `BITCOIN_VERSION`          |
+
 
 ### Environment variables
 
@@ -83,13 +88,13 @@ $ make test
 
 ### Environment variables
 
-| Variable                     | Description     |
-|------------------------------|-----------------|
-| `S3_ENDPOINT`                |                 |
-| `S3_BUCKET`                  |                 |
-| `S3_ACCESS_KEY_ID`           |                 |
-| `S3_SECRET_ACCESS_KEY`       |                 |
-| `FORWARD_S3_NFS_PORT`        | (default: 2049) |
+| Variable               |
+|------------------------|
+| `S3_ENDPOINT`          |
+| `S3_BUCKET`            |
+| `S3_ACCESS_KEY_ID`     |
+| `S3_SECRET_ACCESS_KEY` |
+| `FORWARD_S3_NFS_PORT`  |
 
 
 [Bitcoin Core]: https://github.com/bitcoin/bitcoin

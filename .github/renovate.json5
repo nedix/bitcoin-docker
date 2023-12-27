@@ -7,5 +7,17 @@
     "regex",
   ],
   regexManagers: [
+    {
+      fileMatch: ["^Dockerfile$"],
+      matchStrings: ["ARG ALPINE_VERSION=(?<currentValue>.*?)\\n"],
+      datasourceTemplate: "docker",
+      depNameTemplate: "alpine",
+    },
+    {
+      fileMatch: ["^Dockerfile$"],
+      matchStrings: ["ARG BITCOIN_VERSION=(?<currentValue>.*?)\\n"],
+      datasourceTemplate: "docker",
+      depNameTemplate: "btcpayserver/bitcoin",
+    }
   ]
 }
