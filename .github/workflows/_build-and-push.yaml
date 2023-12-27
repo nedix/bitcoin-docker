@@ -13,14 +13,14 @@ jobs:
           - external-mode
           - internal-mode
         bitcoin_version:
-          - 24.0
-          - 25.0
+          - '24.0'
+          - '25.0'
         include:
           - target: external-mode
-            bitcoin_version: 25.0
+            bitcoin_version: '25.0'
             latest: true
           - target: internal-mode
-            bitcoin_version: 25.0
+            bitcoin_version: '25.0'
             latest: true
 
     steps:
@@ -58,10 +58,10 @@ jobs:
           push: true
           target: ${{ matrix.target }}
           tags: |
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.DIGEST, matrix.bitcoin_version, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.DIGEST, matrix.bitcoin_version, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.REF_NAME, matrix.bitcoin_version, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.REF_NAME, matrix.bitcoin_version, matrix.target) || '' }}
             ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
             ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
             ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, matrix.bitcoin_version, matrix.target) || '' }}
