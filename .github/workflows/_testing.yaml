@@ -1,10 +1,10 @@
-name: Feature testing
+name: Testing
 
 on:
   workflow_call:
 
 jobs:
-  integration:
+  e2e:
     runs-on: ubuntu-latest
 
     steps:
@@ -17,9 +17,9 @@ jobs:
         with:
           ref: ${{ steps.extract-ref.outputs.ref }}
 
-      - name: Build image and run tests
+      - name: Build images and run tests
         shell: bash
         run: |
           docker compose -f docker-compose.test.yml pull --ignore-buildable
           docker compose -f docker-compose.test.yml build
-          ./tests/integration/index.sh
+          ./tests/e2e/index.sh

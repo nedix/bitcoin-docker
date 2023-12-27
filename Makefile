@@ -22,4 +22,4 @@ fresh:
 
 test: DOCKER_COMPOSE_CMD := docker compose -f docker-compose.test.yml --env-file .env.test
 test:
-	@tests/integration/index.sh
+	@tests/e2e/index.sh
