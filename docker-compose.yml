@@ -42,7 +42,7 @@ services:
         condition: service_started
 
   s3-nfs:
-    image: ghcr.io/nedix/s3-nfs-docker:1.0.4
+    image: ghcr.io/nedix/s3-nfs-docker:v0.2.0
     cap_add:
       - SYS_ADMIN
     devices:
