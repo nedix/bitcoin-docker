@@ -49,8 +49,10 @@ jobs:
           push: true
           target: ${{ matrix.target }}
           tags: |
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) || '' }}
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) }}
+            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) }}
+            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target) }}
+            ${{ format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.DIGEST) }}
+            ${{ format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.REF_NAME) }}
