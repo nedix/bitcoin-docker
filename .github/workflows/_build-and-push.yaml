@@ -2,6 +2,7 @@ name: Build image and push to container registry
 
 on:
   workflow_call:
+  workflow_dispatch:
 
 jobs:
   build-and-push:
@@ -55,13 +56,12 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          target: target-${{ matrix.target }}
+          target: ${{ matrix.target }}
           tags: |
-            ${{ matrix.target == 'alpine' && format('ghcr.io/{0}:{1}-{2}{3}', github.repository, steps.tags.outputs.REF_NAME, matrix.target, matrix.bitcoin_version) || '' }}
-            ${{ matrix.target == 'alpine' && format('ghcr.io/{0}:{1}-{2}{3}', github.repository, steps.tags.outputs.REF_NAME, matrix.target, matrix.bitcoin_version) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
+            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
             ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.DIGEST, matrix.target) || '' }}
             ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.REF_NAME, matrix.target) || '' }}
-            ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, 'latest', matrix.target) || '' }}
-            ${{ matrix.latest == true && matrix.target == 'alpine' && format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.DIGEST) || '' }}
-            ${{ matrix.latest == true && matrix.target == 'alpine' && format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.REF_NAME) || '' }}
-            ${{ matrix.latest == true && matrix.target == 'alpine' && format('ghcr.io/{0}:{1}', github.repository, 'latest') || '' }}
+            ${{ matrix.latest == true && format('ghcr.io/{0}:{1}-{2}', github.repository, matrix.bitcoin_version, matrix.target) || '' }}
