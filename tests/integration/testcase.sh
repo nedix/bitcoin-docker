@@ -4,8 +4,8 @@ export DOCKER_COMPOSE_CMD="docker compose -f docker-compose.test.yml --env-file 
 
 setup() {
     if [ -z "$TESTCASE_INITIALIZED" ]; then
-        ${DOCKER_COMPOSE_CMD} down --remove-orphans --volumes
-        ${DOCKER_COMPOSE_CMD} up --wait -d minio
+        destroy
+        ${DOCKER_COMPOSE_CMD} up --no-deps --wait -d minio
         ${DOCKER_COMPOSE_CMD} exec minio sh -c " \
             mc mb 'data/minio/${MINIO_BUCKET}' \
             && mc anonymous set none 'data/minio/${MINIO_BUCKET}' \
@@ -13,6 +13,11 @@ setup() {
         ${DOCKER_COMPOSE_CMD} up --wait -d test
         export TESTCASE_INITIALIZED=true
     fi
+}
+
+destroy() {
+    ${DOCKER_COMPOSE_CMD} kill --remove-orphans
+    ${DOCKER_COMPOSE_CMD} rm --volumes --force
 }
 
 assert_success() {

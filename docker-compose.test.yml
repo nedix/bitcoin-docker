@@ -1,4 +1,4 @@
-name: ${COMPOSE_PROJECT_NAME}-test
+name: bitcoin-test
 
 services:
   test:
@@ -52,6 +52,7 @@ networks:
 
 volumes:
   bitcoin:
+  minio:
   s3-nfs:
     driver_opts:
       type: nfs

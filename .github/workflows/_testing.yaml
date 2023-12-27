@@ -22,4 +22,4 @@ jobs:
         run: |
           docker compose -f docker-compose.test.yml pull --ignore-buildable
           docker compose -f docker-compose.test.yml build
-          ./tests/integration/it_should_pass_all_integration_tests.sh
+          ./tests/integration/index.sh
