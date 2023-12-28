@@ -19,5 +19,12 @@
       datasourceTemplate: "docker",
       depNameTemplate: "btcpayserver/bitcoin",
     }
-  ]
+  ],
+  packageRules: [
+    {
+      description: "Disable grouping for regex managed dependencies",
+      matchDepTypes: ["regex"],
+      groupName: null
+    }
+  ],
 }
