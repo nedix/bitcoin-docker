@@ -1,79 +1,23 @@
-# bitcoin-docker
+# [bitcoin]-docker
 
-A Docker container that runs [Bitcoin Core] in either an external mode or in an internal (pruned) mode.
-Containers in external mode synchronize with the Bitcoin network and broadcast transactions from internal mode
- containers.
-Containers in internal mode are isolated from the public internet and communicate over an internal network with external
- mode containers.
+Docker images to run [Bitcoin Core][bitcoin] in full or pruned mode.
+
+## Synopsis
+
+Two separate images run [Bitcoin] in either an external mode or in an internal (pruned) mode.
+Containers in external mode synchronize with the Bitcoin network and broadcast transactions from internal mode containers.
+Containers in internal mode are isolated from the public internet and communicate over an internal network with external mode containers.
 The goal is to make wallets safer by keeping them isolated from the public internet.
 
+<hr>
 
-## Makefile
-
-Docker Compose is required for running tasks from the makefile.
-
-Run the [`make setup`](#setup) command to get started.
-
-### Up
-
-Start the application.
-
-```bash
-$ make up
-```
-
-### Down
-
-Stop the application.
-
-```bash
-$ make down
-```
-
-### Setup
-
-Setup and start the application. It will copy the .env.example file to .env if it could not be found.
-
-```bash
-$ make setup
-```
-
-### Destroy
-
-Stop the application and remove containers and volumes.
-
-```bash
-$ make destroy
-```
-
-### Fresh
-
-Recreate the application.
-
-```bash
-$ make fresh
-```
-
-### Test
-
-Test the application.
-
-```bash
-$ make test
-```
-
-
-## Docker
-
-### Build arguments
-
-| Variable                   |
-|----------------------------|
-| `ALPINE_VERSION`           |
-| `BITCOIN_VERSION`          |
-
+## Setup 
 
 ### Environment variables
+
+Create an `.env` file or copy it from `.env.example` and configure it to your needs.
+
+#### Docker container
 
 | Variable                   | Description                                                                               |
 |----------------------------|-------------------------------------------------------------------------------------------|
@@ -83,19 +27,63 @@ $ make test
 | `WEBHOOK_ENDPOINT`         | Endpoint to receive JSON POST requests of Bitcoin Core notifications.                     |
 | `FORWARD_BITCOIN_RPC_PORT` | Public port to the RPC for both external mode and internal mode containers.               |
 
+<hr>
 
-## Docker Compose
+## Usage
 
-### Environment variables
+#### Up
 
-| Variable               |
-|------------------------|
-| `S3_ENDPOINT`          |
-| `S3_BUCKET`            |
-| `S3_ACCESS_KEY_ID`     |
-| `S3_SECRET_ACCESS_KEY` |
-| `FORWARD_S3_NFS_PORT`  |
+Start the application.
 
+```shell
+make up
+```
 
-[Bitcoin Core]: https://github.com/bitcoin/bitcoin
+#### Down
+
+Stop the application.
+
+```shell
+make down
+```
+
+#### Setup
+
+Setup and start the application. It will copy the .env.example file to .env if it could not be found.
+
+```shell
+make setup
+```
+
+#### Destroy
+
+Stop the application and remove containers and volumes.
+
+```shell
+make destroy
+```
+
+#### Fresh
+
+Recreate the application.
+
+```shell
+make fresh
+```
+
+#### Test
+
+Test the application.
+
+```shell
+make test
+```
+
+<hr>
+
+## Attribution
+
+Powered by [Bitcoin Core][bitcoin].
+
+[bitcoin]: https://github.com/bitcoin/bitcoin
 [S3-NFS-Docker]: https://github.com/nedix/s3-nfs-docker
