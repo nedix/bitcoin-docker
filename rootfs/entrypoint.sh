@@ -53,6 +53,8 @@ if grep -q "-reindex" "$LOG_FILE"; then
     ARGS="$ARGS --reindex"
 fi
 
-exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | /opt/bitcoin/rotating-logger.sh
+if grep -q "Errors in block header" "$LOG_FILE"; then
+    ARGS="$ARGS --reindex-chainstate"
+fi
 
 exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | /opt/bitcoin/rotating-logger.sh "$LOG_FILE"
