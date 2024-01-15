@@ -53,18 +53,7 @@ if grep -q "-reindex" "$LOG_FILE"; then
     ARGS="$ARGS --reindex"
 fi
 
-logger() {
-    awk \
-    -v LOG_FILE="$LOG_FILE" \
-    '{
-        print
-        fflush()
-        print >> LOG_FILE
-        close(LOG_FILE)
-        if (NR > 1000) {
-            system("sed -i '\''1d'\'' " LOG_FILE)
-        }
-    }' < /dev/stdin
-}
-
-exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | logger
+exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | while IFS= read -r -t 1 LINE; do
+    echo "$LINE"
+    sed -i -e '1,1000d' -e "\$a${LINE}" "$LOG_FILE"
+done
