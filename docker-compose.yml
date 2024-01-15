@@ -5,13 +5,13 @@ services:
     build:
       context: ${PWD}
       dockerfile: Dockerfile
-      target: external-mode
     image: ${COMPOSE_PROJECT_NAME}:external-mode
     pull_policy: never
     environment:
       CHAIN: ${BITCOIN_CHAIN}
-      RPC_USERNAME: ${BITCOIN_RPC_USERNAME}
+      MODE: external
       RPC_PASSWORD: ${BITCOIN_RPC_PASSWORD}
+      RPC_USERNAME: ${BITCOIN_RPC_USERNAME}
       WEBHOOK_ENDPOINT: ${BITCOIN_WEBHOOK_ENDPOINT}
     networks:
       default:
@@ -28,11 +28,10 @@ services:
   bitcoin-internal:
     extends:
       service: bitcoin-external
-    build:
-      target: internal-mode
     image: ${COMPOSE_PROJECT_NAME}:internal-mode
     environment:
       EXTERNAL_PEER: bitcoin-external
+      MODE: internal
     networks:
       internal:
         aliases:
@@ -42,7 +41,7 @@ services:
         condition: service_started
 
   mega-nfs:
-    image: ghcr.io/nedix/mega-nfs-docker:v0.0.1
+    image: ghcr.io/nedix/mega-nfs-docker:v0.0.2
     privileged: true
     devices:
       - /dev/fuse:/dev/fuse:rwm

@@ -4,7 +4,7 @@ Docker images to run [Bitcoin Core][bitcoin] in full or pruned mode.
 
 ## Synopsis
 
-Two separate images run [Bitcoin] in either an external mode or in an internal (pruned) mode.
+Two separate ways to run [Bitcoin] in either an external mode or in an internal (pruned) mode.
 Containers in external mode synchronize with the Bitcoin network and broadcast transactions from internal mode containers.
 Containers in internal mode are isolated from the public internet and communicate over an internal network with external mode containers.
 The goal is to make wallets safer by keeping them isolated from the public internet.
