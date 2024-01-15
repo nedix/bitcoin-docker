@@ -6,7 +6,7 @@ set -e
 
 : ${BLOCKS_DIRECTORY:="$(get_blocks_directory)"}
 : ${DATA_DIRECTORY:="$(get_data_directory)"}
-: ${DB_CACHE:=1024}
+: ${DB_CACHE_SIZE:=1024}
 : ${EXTERNAL_PEER:="bitcoin-external"}
 : ${LOG_FILE:="${DATA_DIRECTORY}/bitcoind.log"}
 : ${MODE:=""}
@@ -17,7 +17,7 @@ ARGS=" \
     --chain=${CHAIN} \
     --conf=/etc/bitcoin/bitcoin.conf \
     --datadir=${DATA_DIRECTORY} \
-    --dbcache=${DB_CACHE} \
+    --dbcache=${DB_CACHE_SIZE} \
     --printtoconsole=1 \
     --upnp=0 \
     --whitelist=172.16.0.0/12 \
