@@ -54,3 +54,5 @@ if grep -q "-reindex" "$LOG_FILE"; then
 fi
 
 exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | /opt/bitcoin/rotating-logger.sh
+
+exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | /opt/bitcoin/rotating-logger.sh "$LOG_FILE"

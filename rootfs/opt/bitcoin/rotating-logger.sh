@@ -1,6 +1,7 @@
 #!/usr/bin/env sh
 
 ACCUMULATOR=""
+LOG_FILE="$1"
 
 while IFS= read -r LINE; do
     echo "$LINE"
