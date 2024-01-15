@@ -6,6 +6,7 @@ set -e
 
 : ${BLOCKS_DIRECTORY:="$(get_blocks_directory)"}
 : ${DATA_DIRECTORY:="$(get_data_directory)"}
+: ${DB_CACHE:=1024}
 : ${EXTERNAL_PEER:="bitcoin-external"}
 : ${LOG_FILE:="${DATA_DIRECTORY}/bitcoind.log"}
 : ${MODE:=""}
@@ -16,6 +17,7 @@ ARGS=" \
     --chain=${CHAIN} \
     --conf=/etc/bitcoin/bitcoin.conf \
     --datadir=${DATA_DIRECTORY} \
+    --dbcache=${DB_CACHE} \
     --printtoconsole=1 \
     --upnp=0 \
     --whitelist=172.16.0.0/12 \
@@ -48,7 +50,7 @@ case "$MODE" in
 esac
 
 if grep -q "-reindex" "$LOG_FILE"; then
-    ARGS="$ARGS -reindex"
+    ARGS="$ARGS --reindex"
 fi
 
 logger() {
