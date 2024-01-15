@@ -53,7 +53,8 @@ if grep -q "-reindex" "$LOG_FILE"; then
     ARGS="$ARGS --reindex"
 fi
 
-exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | while IFS= read -r -t 1 LINE; do
+exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | while IFS= read -r LINE; do
     echo "$LINE"
     sed -i -e '1,1000d' -e "\$a${LINE}" "$LOG_FILE"
+    sleep 1
 done
