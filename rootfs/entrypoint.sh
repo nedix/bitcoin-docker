@@ -47,4 +47,22 @@ case "$MODE" in
         ;;
 esac
 
-exec /usr/local/bin/bitcoind ${ARGS}
+if grep -q "-reindex" "$LOG_FILE"; then
+    ARGS="$ARGS -reindex"
+fi
+
+logger() {
+    awk \
+    -v LOG_FILE="$LOG_FILE" \
+    '{
+        print
+        fflush()
+        print >> LOG_FILE
+        close(LOG_FILE)
+        if (NR > 1000) {
+            system("sed -i '\''1d'\'' " LOG_FILE)
+        }
+    }' < /dev/stdin
+}
+
+exec /usr/local/bin/bitcoind ${ARGS} 2>&1 | logger
