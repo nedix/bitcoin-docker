@@ -3,7 +3,7 @@ name: bitcoin
 services:
   bitcoin-external:
     build:
-      context: ${PWD}
+      context: .
       dockerfile: Dockerfile
     image: ${COMPOSE_PROJECT_NAME}:external-mode
     pull_policy: never
@@ -15,7 +15,7 @@ services:
       WEBHOOK_ENDPOINT: ${BITCOIN_WEBHOOK_ENDPOINT}
     networks:
       default:
-      internal:
+      private:
     volumes:
       - /var/bitcoin
       - mega-nfs:/mnt/nfs
@@ -33,7 +33,7 @@ services:
       EXTERNAL_PEER: bitcoin-external
       MODE: internal
     networks:
-      internal:
+      private:
         aliases:
           - bitcoin
     depends_on:
@@ -52,7 +52,7 @@ services:
       BUFFER_SIZE: 64
     networks:
       default:
-      internal:
+      private:
     volumes:
       - /sys/fs/cgroup/mega-nfs:/sys/fs/cgroup
     ports:
@@ -61,9 +61,9 @@ services:
 
 networks:
   default:
-    name: ${COMPOSE_PROJECT_NAME}
-  internal:
-    name: ${COMPOSE_PROJECT_NAME}-internal
+    name: ${COMPOSE_PROJECT_NAME}-public
+  private:
+    name: ${COMPOSE_PROJECT_NAME}-private
     internal: true
 
 volumes:
