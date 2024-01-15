@@ -7,11 +7,6 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        target:
-          - external-mode
-          - internal-mode
 
     steps:
       - name: Checkout code
@@ -37,7 +32,6 @@ jobs:
         id: tags
         run: |
           git fetch --all --tags
-          echo "BITCOIN_VERSION=$(sed -n 's/ARG BITCOIN_VERSION=\(.*\)/\1/p' Dockerfile)" >> $GITHUB_OUTPUT
           echo "DIGEST=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
           echo "REF_NAME=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
@@ -47,12 +41,7 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64
           push: true
-          target: ${{ matrix.target }}
           tags: |
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.DIGEST) }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) }}
-            ${{ format('ghcr.io/{0}:{1}-{2}-{3}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target, steps.tags.outputs.REF_NAME) }}
-            ${{ format('ghcr.io/{0}:{1}-{2}', github.repository, steps.tags.outputs.BITCOIN_VERSION, matrix.target) }}
             ${{ format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.DIGEST) }}
             ${{ format('ghcr.io/{0}:{1}', github.repository, steps.tags.outputs.REF_NAME) }}
+            ${{ format('ghcr.io/{0}:{1}', github.repository, 'latest') }}
