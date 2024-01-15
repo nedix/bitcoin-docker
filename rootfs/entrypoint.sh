@@ -67,4 +67,4 @@ logger() {
     }' < /dev/stdin
 }
 
-exec /usr/local/bin/bitcoind ${ARGS} 2>&1 | logger
+exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | logger
