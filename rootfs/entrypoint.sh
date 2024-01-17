@@ -9,6 +9,7 @@ set -e
 : ${DB_CACHE_SIZE:=1024}
 : ${EXTERNAL_PEER:="bitcoin-external"}
 : ${LOG_FILE:="$(get_log_file)"}
+: ${MAX_CONNECTIONS:=125}
 : ${MODE:=""}
 : ${WALLET_DIRECTORY:="$(get_wallet_directory)"}
 
@@ -27,6 +28,7 @@ case "$MODE" in
     external)
         ARGS="$ARGS \
             --disablewallet=1 \
+            --max-connections="$MAX_CONNECTIONS" \
             --txindex=1 \
             --walletbroadcast=0 \
         "
