@@ -28,7 +28,7 @@ case "$MODE" in
     external)
         ARGS="$ARGS \
             --disablewallet=1 \
-            --max-connections="$MAX_CONNECTIONS" \
+            --maxconnections="$MAX_CONNECTIONS" \
             --txindex=1 \
             --walletbroadcast=0 \
         "
