@@ -3,7 +3,7 @@
 LOG_FILE="$1"
 
 while IFS= read -r LINE; do
-    echo "$LINE"
+    echo -n "$LINE"
 
     if [ -z "$TIMEOUT" ]; then
         TIMEOUT=$(( $(date +%s) + 1 ))
