@@ -3,6 +3,11 @@
 DATA_DIRECTORY="/var/bitcoin"
 WALLET_DIRECTORY="${DATA_DIRECTORY}/wallets"
 
+get_log_file() {
+    touch "${DATA_DIRECTORY}/bitcoind.log"
+    echo "${DATA_DIRECTORY}/bitcoind.log"
+}
+
 get_blocks_directory() {
     if [ -e "${DATA_DIRECTORY}/blocks_directory" ]; then
         STORAGE_DIRECTORY=$(cat "${DATA_DIRECTORY}/blocks_directory")

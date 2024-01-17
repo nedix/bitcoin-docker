@@ -8,7 +8,7 @@ set -e
 : ${DATA_DIRECTORY:="$(get_data_directory)"}
 : ${DB_CACHE_SIZE:=1024}
 : ${EXTERNAL_PEER:="bitcoin-external"}
-: ${LOG_FILE:="${DATA_DIRECTORY}/bitcoind.log"}
+: ${LOG_FILE:="$(get_log_file)"}
 : ${MODE:=""}
 : ${WALLET_DIRECTORY:="$(get_wallet_directory)"}
 

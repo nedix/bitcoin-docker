@@ -1,6 +1,5 @@
 #!/usr/bin/env sh
 
-ACCUMULATOR=""
 LOG_FILE="$1"
 
 while IFS= read -r LINE; do
@@ -11,12 +10,15 @@ while IFS= read -r LINE; do
     fi
 
     if [ $(date +%s) -lt $TIMEOUT ]; then
-        ACCUMULATOR="${ACCUMULATOR}${LINE}\n"
+        LOG_LINES="${LOG_LINES:-}\n${LINE}"
         continue
     fi
 
-    sed -i -e '1,1000d' -e "\$a$ACCUMULATOR" "$LOG_FILE"
 
-    ACCUMULATOR=""
+    (cat "$LOG_FILE"; echo -n "$LOG_LINES") \
+        | tail -n 100 \
+        | sed -e "w ${LOG_FILE}"
+
+    LOG_LINES=""
     TIMEOUT=""
 done
