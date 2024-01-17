@@ -3,8 +3,6 @@
 LOG_FILE="$1"
 
 while IFS= read -r LINE; do
-    echo -n "$LINE"
-
     if [ -z "$TIMEOUT" ]; then
         TIMEOUT=$(( $(date +%s) + 1 ))
     fi
@@ -14,10 +12,11 @@ while IFS= read -r LINE; do
         continue
     fi
 
-
     (cat "$LOG_FILE"; echo -n "$LOG_LINES") \
         | tail -n 100 \
         | sed -e "w ${LOG_FILE}"
+
+    echo "$LOG_LINES"
 
     LOG_LINES=""
     TIMEOUT=""
