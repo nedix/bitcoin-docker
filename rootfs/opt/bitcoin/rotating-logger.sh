@@ -9,7 +9,7 @@ while IFS= read -r LINE; do
         TIMEOUT=$(( $(date +%s) + 1 ))
     fi
 
-    if [ $(date +%s) -lt $TIMEOUT ]; then
+    if [ $(date +%s) -lt "$TIMEOUT" ]; then
         LOG_LINES="${LOG_LINES:-}\n${LINE}"
         continue
     fi

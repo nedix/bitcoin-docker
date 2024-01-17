@@ -29,7 +29,7 @@ case "$MODE" in
         ARGS="$ARGS \
             --disablewallet=1 \
             --forcednsseed=1 \
-            --maxconnections="$MAX_CONNECTIONS" \
+            --maxconnections=${MAX_CONNECTIONS} \
             --txindex=1 \
             --walletbroadcast=0 \
         "
@@ -56,4 +56,4 @@ if grep -q "-reindex" "$LOG_FILE" || grep -q "Errors in block header" "$LOG_FILE
     ARGS="$ARGS --reindex"
 fi
 
-exec stdbuf -oL /usr/local/bin/bitcoind ${ARGS} 2>&1 | /opt/bitcoin/rotating-logger.sh "$LOG_FILE"
+exec stdbuf -oL /usr/local/bin/bitcoind $ARGS 2>&1 | /opt/bitcoin/rotating-logger.sh "$LOG_FILE"

@@ -14,7 +14,7 @@ setup:
 
 destroy:
 	@$(DOCKER_COMPOSE_CMD) kill --remove-orphans
-	@${DOCKER_COMPOSE_CMD} rm --volumes --force
+	@$(DOCKER_COMPOSE_CMD) rm --volumes --force
 
 fresh:
 	@make destroy
