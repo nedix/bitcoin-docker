@@ -1,7 +1,7 @@
 ARG ALPINE_VERSION=3.19
 ARG BITCOIN_VERSION=26.0
 
-FROM --platform=$BUILDPLATFORM btcpayserver/bitcoin:${BITCOIN_VERSION} as build
+FROM btcpayserver/bitcoin:${BITCOIN_VERSION} as build
 
 RUN apt update \
     && apt install -y \
