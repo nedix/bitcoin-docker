@@ -62,7 +62,7 @@ if \
     ARGS="$ARGS --reindex"
 fi
 
-mkfifo /tmp/fifo
+test -f /tmp/fifo || mkfifo /tmp/fifo
 
 grep ".*" --line-buffered < /tmp/fifo | /opt/bitcoin/rotating-logger.sh "$LOG_FILE" &
 
