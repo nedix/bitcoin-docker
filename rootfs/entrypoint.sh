@@ -62,4 +62,8 @@ if \
     ARGS="$ARGS --reindex"
 fi
 
-exec stdbuf -oL /usr/local/bin/bitcoind $ARGS 2>&1 | /opt/bitcoin/rotating-logger.sh "$LOG_FILE"
+test -p /tmp/fifo || mkfifo /tmp/fifo
+
+grep ".*" --line-buffered < /tmp/fifo | /opt/bitcoin/rotating-logger.sh "$LOG_FILE" &
+
+exec /usr/local/bin/bitcoind $ARGS > /tmp/fifo 2>&1
