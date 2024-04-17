@@ -1,25 +1,15 @@
-DOCKER_COMPOSE_CMD := docker compose
+setup:
+	@docker build . -t bitcoin
 
+up: port = 8332
 up:
-	@$(DOCKER_COMPOSE_CMD) up -d bitcoin-external bitcoin-internal
+	@docker run --rm --name bitcoin \
+        --env-file .env \
+        -p 127.0.0.1:$(port):8332 \
+        bitcoin
 
 down:
-	@$(DOCKER_COMPOSE_CMD) down --remove-orphans
+	-@docker stop bitcoin
 
-setup:
-	@test -e .env || cp .env.example .env
-	@$(DOCKER_COMPOSE_CMD) pull --ignore-buildable
-	@$(DOCKER_COMPOSE_CMD) build
-	@make up
-
-destroy:
-	@$(DOCKER_COMPOSE_CMD) kill --remove-orphans
-	@$(DOCKER_COMPOSE_CMD) rm --volumes --force
-
-fresh:
-	@make destroy
-	@make setup
-
-test: DOCKER_COMPOSE_CMD := docker compose -f docker-compose.test.yml --env-file .env.test
-test:
-	@tests/e2e/index.sh
+shell:
+	@docker exec -it bitcoin /bin/sh

@@ -2,15 +2,18 @@
 
 set -e
 
-. /opt/bitcoin/manage-storage.sh
+. /opt/bitcoin/storage-manager.sh
 
 : ${BLOCKS_DIRECTORY:="$(get_blocks_directory)"}
+: ${CHAIN:="main"}
 : ${DATA_DIRECTORY:="$(get_data_directory)"}
 : ${DB_CACHE_SIZE:=1024}
-: ${EXTERNAL_PEER:="bitcoin-external"}
+: ${EXTERNAL_PEER:=""}
 : ${LOG_FILE:="$(get_log_file)"}
 : ${MAX_CONNECTIONS:=125}
-: ${MODE:=""}
+: ${MODE:="external"}
+: ${RPC_PASSWORD:=""}
+: ${RPC_USERNAME:=""}
 : ${WALLET_DIRECTORY:="$(get_wallet_directory)"}
 
 ARGS=" \
@@ -52,7 +55,10 @@ case "$MODE" in
         ;;
 esac
 
-if grep -q "-reindex" "$LOG_FILE" || grep -q "Errors in block header" "$LOG_FILE"; then
+if \
+    grep -q "-reindex" "$LOG_FILE" \
+    || grep -q "Errors in block header" "$LOG_FILE" \
+; then
     ARGS="$ARGS --reindex"
 fi
 
