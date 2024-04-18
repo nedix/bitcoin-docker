@@ -22,6 +22,7 @@ ARGS=" \
     --conf=/etc/bitcoin/bitcoin.conf \
     --datadir=${DATA_DIRECTORY} \
     --dbcache=${DB_CACHE_SIZE} \
+    --maxconnections=${MAX_CONNECTIONS} \
     --printtoconsole=1 \
     --upnp=0 \
     --whitelist=172.16.0.0/12 \
@@ -31,7 +32,6 @@ case "$MODE" in
     external)
         ARGS="$ARGS \
             --disablewallet=1 \
-            --maxconnections=${MAX_CONNECTIONS} \
             --txindex=1 \
             --walletbroadcast=0 \
         "
