@@ -1,4 +1,5 @@
 setup:
+	@test -e .env || cp .env.example .env
 	@docker build . -t bitcoin
 
 up: port = 8332
