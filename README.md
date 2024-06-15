@@ -1,35 +1,40 @@
-# [bitcoin]-docker
+# [bitcoin][Bitcoin Core]-docker
 
-Docker images to run [Bitcoin Core][bitcoin] in full or pruned mode.
+Container to run Bitcoin Core in full or pruned mode.
 
 ## Synopsis
 
-Two separate ways to run [Bitcoin] in either an external mode or in an internal (pruned) mode.
+This container can be used to run Bitcoin Core in either an external mode or in an internal (pruned) mode.
 Containers in external mode synchronize with the Bitcoin network and broadcast transactions from internal mode containers.
 Containers in internal mode are isolated from the public internet and communicate over an internal network with external mode containers.
 The goal is to make wallets safer by keeping them isolated from the public internet.
 
-<hr>
+## Configuration
 
-## Setup 
-
-### Environment variables
-
-Create an `.env` file or copy it from `.env.example` and configure it to your needs.
-
-#### Docker container
-
-| Variable                   | Description                                                                               |
+| Environment variable       | Description                                                                               |
 |----------------------------|-------------------------------------------------------------------------------------------|
 | `EXTERNAL_PEER`            | Hostname of an external mode container that an internal mode container should connect to. |
 | `RPC_USERNAME`             | Username for RPC authentication.                                                          |
 | `RPC_PASSWORD`             | Password for RPC authentication.                                                          |
 | `WEBHOOK_ENDPOINT`         | Endpoint to receive JSON POST requests of Bitcoin Core notifications.                     |
-| `FORWARD_BITCOIN_RPC_PORT` | Public port to the RPC for both external mode and internal mode containers.               |
+| `FORWARD_BITCOIN_RPC_PORT` | Public port to the Bitcoin Core RPC server.                                               |
 
-<hr>
+## Development
 
-## Usage
+### Preparation
+
+1. Start by cloning this repository to your machine 
+1. Copy the .env.example file to .env and [configure](#configuration) it.
+
+### Commands
+
+#### Setup
+
+Build the application. It will copy the .env.example file to .env if it could not be found.
+
+```shell
+make setup
+```
 
 #### Up
 
@@ -47,43 +52,16 @@ Stop the application.
 make down
 ```
 
-#### Setup
+#### Shell
 
-Setup and start the application. It will copy the .env.example file to .env if it could not be found.
-
-```shell
-make setup
-```
-
-#### Destroy
-
-Stop the application and remove containers and volumes.
+Interact with the application.
 
 ```shell
-make destroy
+make shell
 ```
-
-#### Fresh
-
-Recreate the application.
-
-```shell
-make fresh
-```
-
-#### Test
-
-Test the application.
-
-```shell
-make test
-```
-
-<hr>
 
 ## Attribution
 
-Powered by [Bitcoin Core][bitcoin].
+- [Bitcoin Core] ([License](https://raw.githubusercontent.com/bitcoin/bitcoin/master/COPYING))
 
-[bitcoin]: https://github.com/bitcoin/bitcoin
-[S3-NFS-Docker]: https://github.com/nedix/s3-nfs-docker
+[Bitcoin Core]: https://github.com/bitcoin/bitcoin
