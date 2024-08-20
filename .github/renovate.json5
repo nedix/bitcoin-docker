@@ -25,12 +25,12 @@
     {
       depNameTemplate: "Quix.sigs",
       fileMatch: ["^Dockerfile$"],
-      matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentValue>.*?)\\n"],
+      matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentDigest>.*?)\\n"],
       datasourceTemplate: "git-refs",
-      packageNameTemplate: "https://github.com/bitcoin-core/guix.sigs",
+      packageNameTemplate: "https://github.com/bitcoin-core/guix.sigs.git",
       versioningTemplate: "git",
       currentValueTemplate: "main",
-    }
+    },
   ],
   packageRules: [
     {
