@@ -46,7 +46,7 @@ jobs:
     name: Update package
     runs-on: ubuntu-latest
     needs:
-      - check-tag
+      - run-checks
     steps:
       - name: Extract ref
         id: extract-ref
