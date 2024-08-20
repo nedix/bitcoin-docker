@@ -28,10 +28,12 @@ jobs:
           repositories: ${{ toJSON(github.repository) }}
 
       - name: Renovate dependencies
-        uses: renovatebot/github-action@v40.2.6
+        uses: renovatebot/github-action@v40.1.12
         with:
+          renovate-version: 37.385.0
           token: ${{ steps.renovate-app-token.outputs.token }}
         env:
+          LOG_LEVEL: debug
           RENOVATE_AUTODISCOVER: true
           RENOVATE_AUTODISCOVER_FILTER: ${{ github.repository }}
           RENOVATE_AUTOMERGE: true
