@@ -1,11 +1,8 @@
 {
+  extends: ["https://raw.githubusercontent.com/nedix/nedix/main/.github/renovate.json5"],
   baseBranches: [
     "main",
     "/^release\\/.*/",
-  ],
-  enabledManagers: [
-    "custom.regex",
-    "github-actions",
   ],
   customManagers: [
     {
@@ -33,11 +30,6 @@
     },
   ],
   packageRules: [
-    {
-      description: "Disable grouping for all dependencies",
-      matchPackagePatterns: [".*"],
-      groupName: null,
-    },
     {
       description: "Custom versioning for Bitcoin",
       matchPackageNames: ["bitcoin/bitcoin"],
