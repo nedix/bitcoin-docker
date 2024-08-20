@@ -46,10 +46,20 @@ jobs:
           ref: ${{ steps.extract-ref.outputs.ref }}
           fetch-depth: 0
 
-      - name: Auto merge
+      - name: Merge
         run: gh pr merge ${{ steps.extract-ref.outputs.ref }} --merge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Renovate conflicts
+        if: ${{ failure() }}
+        run: |
+          gh run ls \
+            -w Renovate \
+            -s in_progress \
+            -s queued \
+            -s requested \
+            -s waiting
 
   push-tag:
     name: Push tag
@@ -59,7 +69,7 @@ jobs:
     steps:
       - name: Extract ref
         id: extract-ref
-        run: echo "ref=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        run: echo "ref=${{ github.event.repository.default_branch }}" >> $GITHUB_OUTPUT
 
       - name: Checkout code
         uses: actions/checkout@v4
