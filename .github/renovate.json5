@@ -16,6 +16,13 @@
       packageNameTemplate: "alpine",
     },
     {
+      depNameTemplate: "Bitcoin",
+      fileMatch: ["^Dockerfile$"],
+      matchStrings: ["ARG BITCOIN_VERSION=(?<currentValue>.*?)\\n"],
+      datasourceTemplate: "github-tags",
+      packageNameTemplate: "bitcoin/bitcoin",
+    },
+    {
       depNameTemplate: "Quix.sigs",
       fileMatch: ["^Dockerfile$"],
       matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentDigest>.*?)\\n"],
@@ -30,6 +37,11 @@
       description: "Disable grouping for all dependencies",
       matchPackagePatterns: [".*"],
       groupName: null,
+    },
+    {
+      description: "Custom versioning for Bitcoin",
+      matchPackageNames: ["bitcoin/bitcoin"],
+      extractVersion: "^v(?<version>.*)$",
     },
   ],
 }
