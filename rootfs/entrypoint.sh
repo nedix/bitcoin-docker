@@ -46,6 +46,8 @@ case "$MODE" in
             --rpcpassword=${RPC_PASSWORD} \
             --rpcuser=${RPC_USERNAME} \
             --walletdir=${WALLET_DIRECTORY} \
+            --zmqpubrawblock=tcp://0.0.0.0:28332 \
+            --zmqpubrawtx=tcp://0.0.0.0:28333 \
         "
         ;;
     *)

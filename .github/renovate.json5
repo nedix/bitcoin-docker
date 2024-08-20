@@ -18,16 +18,30 @@
     {
       depNameTemplate: "Bitcoin",
       fileMatch: ["^Dockerfile$"],
-      datasourceTemplate: "docker",
       matchStrings: ["ARG BITCOIN_VERSION=(?<currentValue>.*?)\\n"],
-      packageNameTemplate: "btcpayserver/bitcoin",
+      datasourceTemplate: "github-tags",
+      packageNameTemplate: "bitcoin/bitcoin",
     },
+    {
+      depNameTemplate: "Quix.sigs",
+      fileMatch: ["^Dockerfile$"],
+      matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentValue>.*?)\\n"],
+      datasourceTemplate: "git-refs",
+      packageNameTemplate: "https://github.com/bitcoin-core/guix.sigs",
+      versioningTemplate: "git",
+      currentValueTemplate: "main",
+    }
   ],
   packageRules: [
     {
       description: "Disable grouping for all dependencies",
       matchPackagePatterns: [".*"],
       groupName: null,
+    },
+    {
+      description: "Custom versioning for Bitcoin",
+      matchPackageNames: ["bitcoin/bitcoin"],
+      extractVersion: "^v(?<version>.*)$",
     },
   ],
 }

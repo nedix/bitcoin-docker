@@ -1,6 +1,6 @@
 setup:
 	@test -e .env || cp .env.example .env
-	@docker build . -t bitcoin
+	@docker build . --tag=bitcoin --progress=plain
 
 up: port = 8332
 up:
