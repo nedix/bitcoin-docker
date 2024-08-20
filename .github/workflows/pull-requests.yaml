@@ -47,7 +47,7 @@ jobs:
           fetch-depth: 0
 
       - name: Auto merge
-        run: gh pr merge ${{ steps.extract-ref.outputs.ref }} --auto
+        run: gh pr merge ${{ steps.extract-ref.outputs.ref }} --merge
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -72,9 +72,3 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
-
-#  pull-request-merged:
-#    name: Pull request merged
-#    needs:
-#      - merge
-#    uses: ./.github/workflows/tags.yaml
