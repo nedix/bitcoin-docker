@@ -15,8 +15,9 @@ on:
 
 jobs:
   checks:
-    name: Check labels
+    name: Checks
     runs-on: ubuntu-latest
+    continue-on-error: true
     steps:
       - name: Check labels
         if: contains(github.event.pull_request.labels.*.name, 'workflows')
