@@ -7,8 +7,8 @@ on:
 
 jobs:
   renovate:
+    name: Renovate
     runs-on: ubuntu-latest
-
     steps:
       - name: Extract ref
         id: extract-ref
