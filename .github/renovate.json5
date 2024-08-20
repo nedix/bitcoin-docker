@@ -1,11 +1,8 @@
 {
+  extends: ["https://raw.githubusercontent.com/nedix/nedix/main/.github/renovate.json5"],
   baseBranches: [
     "main",
     "/^release\\/.*/",
-  ],
-  enabledManagers: [
-    "custom.regex",
-    "github-actions",
   ],
   customManagers: [
     {
@@ -25,19 +22,14 @@
     {
       depNameTemplate: "Quix.sigs",
       fileMatch: ["^Dockerfile$"],
-      matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentValue>.*?)\\n"],
+      matchStrings: ["ARG QUIX_SIGS_VERSION=(?<currentDigest>.*?)\\n"],
       datasourceTemplate: "git-refs",
       packageNameTemplate: "https://github.com/bitcoin-core/guix.sigs",
       versioningTemplate: "git",
       currentValueTemplate: "main",
-    }
+    },
   ],
   packageRules: [
-    {
-      description: "Disable grouping for all dependencies",
-      matchPackagePatterns: [".*"],
-      groupName: null,
-    },
     {
       description: "Custom versioning for Bitcoin",
       matchPackageNames: ["bitcoin/bitcoin"],
