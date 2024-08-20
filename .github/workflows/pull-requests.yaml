@@ -55,13 +55,7 @@ jobs:
         if: ${{ failure() }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          gh run ls \
-            -w Renovate \
-            -s in_progress \
-            -s queued \
-            -s requested \
-            -s waiting
+        run: gh workflow run Renovate
 
   push-tag:
     name: Push tag
