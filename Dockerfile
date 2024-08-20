@@ -1,6 +1,6 @@
 ARG ALPINE_VERSION=3.20
-ARG BITCOIN_VERSION=27.0
-ARG QUIX_SIGS_VERSION=5398474
+ARG BITCOIN_VERSION=27.1
+ARG QUIX_SIGS_VERSION=5398474c82d8b6aec7b3956b1a6addac6c36010b
 
 FROM alpine:${ALPINE_VERSION} AS bitcoin
 
@@ -68,6 +68,8 @@ RUN apk add --no-cache \
         sqlite-libs
 
 COPY --link --from=bitcoin /opt/bitcoin/bin/bitcoin*  /usr/local/bin/
+
+COPY /rootfs/ /
 
 ENTRYPOINT ["/entrypoint.sh"]
 
