@@ -1,21 +1,40 @@
-name: Update package
+name: Tags
 
 on:
-  workflow_call:
-  workflow_dispatch:
+  merge_group:
+  pull_request_target:
+    branches:
+      - main
+    types:
+      - closed
+  push:
+    branches:
+      - main
 
 jobs:
-  check-tag:
-    name: Check tag
+  run-checks:
+    name: Run checks
     runs-on: ubuntu-latest
     steps:
+      - name: Reject workflow pull requests
+        if: |
+          github.event.pull_request.merged == true
+          && contains(github.event.pull_request.labels.*.name, 'workflows')
+        run: |
+          echo "ERROR: The 'workflows' tag is present."
+          exit 1
+
+      - name: Extract ref
+        id: extract-ref
+        run: echo "ref=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
+          ref: ${{ steps.extract-ref.outputs.ref }}
           fetch-depth: 0
 
-      - name: Check tag
+      - name: Check version tag
         run: |
           if git tag --points-at HEAD | grep -qE '^v[0-9]+\.[0-9]+\.[0-9]+$'; then
             exit 0
@@ -29,16 +48,20 @@ jobs:
     needs:
       - check-tag
     steps:
+      - name: Extract ref
+        id: extract-ref
+        run: echo "ref=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+
       - name: Checkout code
         uses: actions/checkout@v4
         with:
-          ref: ${{ github.event.repository.default_branch }}
+          ref: ${{ steps.extract-ref.outputs.ref }}
           fetch-depth: 0
 
-      - name: Set up QEMU
+      - name: Setup QEMU
         uses: docker/setup-qemu-action@v3
 
-      - name: Set up Buildx
+      - name: Setup Buildx
         uses: docker/setup-buildx-action@v3
 
       - name: Login to container registry
@@ -51,7 +74,7 @@ jobs:
       - name: Prepare tags
         id: tags
         run: |
-          echo "DIGEST=${GITHUB_SHA::7}" >> $GITHUB_OUTPUT
+          echo "DIGEST=$(git rev-parse --short=7 HEAD)" >> $GITHUB_OUTPUT
           echo "REF_NAME=$(git tag --points-at HEAD)" >> $GITHUB_OUTPUT
 
       - name: Build and push
