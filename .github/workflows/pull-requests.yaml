@@ -46,8 +46,8 @@ jobs:
           ref: ${{ steps.extract-ref.outputs.ref }}
           fetch-depth: 0
 
-      - name: Merge
-        run: gh pr merge ${{ steps.extract-ref.outputs.ref }} --merge
+      - name: Auto merge
+        run: gh pr merge ${{ steps.extract-ref.outputs.ref }} --auto
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
