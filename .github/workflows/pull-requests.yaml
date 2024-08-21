@@ -78,3 +78,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           WITH_V: true
+
+  tag-pushed:
+    name: Tag pushed
+    needs:
+      - push-tag
+    uses: ./.github/workflows/tags.yaml
