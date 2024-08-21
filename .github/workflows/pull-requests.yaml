@@ -9,8 +9,8 @@ on:
       - synchronize
 
 jobs:
-  run-tests:
-    name: Run tests
+  run-checks:
+    name: Run checks
     runs-on: ubuntu-latest
     steps:
       - name: Extract ref
@@ -34,7 +34,7 @@ jobs:
     name: Merge
     runs-on: ubuntu-latest
     needs:
-      - run-tests
+      - run-checks
     steps:
       - name: Extract ref
         id: extract-ref

@@ -27,7 +27,7 @@ jobs:
 
       - name: Extract ref
         id: extract-ref
-        run: echo "ref=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        run: echo "ref=${{ github.event.repository.default_branch }}" >> $GITHUB_OUTPUT
 
       - name: Checkout code
         uses: actions/checkout@v4.1.7
@@ -51,7 +51,7 @@ jobs:
     steps:
       - name: Extract ref
         id: extract-ref
-        run: echo "ref=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+        run: echo "ref=${{ github.event.repository.default_branch }}" >> $GITHUB_OUTPUT
 
       - name: Checkout code
         uses: actions/checkout@v4.1.7
