@@ -16,7 +16,6 @@ jobs:
         with:
           do_not_skip:
           skip_after_successful_duplicate: false
-          cancel_others: true
           concurrent_skipping: always
     outputs:
       skip-duplicate-jobs: ${{ steps.skip-duplicate-jobs.outputs.should_skip }}
