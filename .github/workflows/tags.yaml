@@ -8,8 +8,6 @@ on:
     types:
       - closed
   push:
-    branches:
-      - main
     tags:
       - v*.*.*
   workflow_call:
