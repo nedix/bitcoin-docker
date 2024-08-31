@@ -2,19 +2,22 @@
 
 set -e
 
-. /opt/bitcoin/storage-manager.sh
-
-: ${BLOCKS_DIRECTORY:="$(get_blocks_directory)"}
+: ${BLOCKS_DIRECTORY:="/var/bitcoin/"}
 : ${CHAIN:="main"}
-: ${DATA_DIRECTORY:="$(get_data_directory)"}
+: ${DATA_DIRECTORY:="/mnt/datasource/"}
 : ${DB_CACHE_SIZE:=1024}
 : ${EXTERNAL_PEER:=""}
-: ${LOG_FILE:="$(get_log_file)"}
+: ${LOG_FILE:="/var/bitcoin/bitcoind.log"}
 : ${MAX_CONNECTIONS:=125}
 : ${MODE:="external"}
 : ${RPC_PASSWORD:=""}
 : ${RPC_USERNAME:=""}
-: ${WALLET_DIRECTORY:="$(get_wallet_directory)"}
+: ${WALLET_DIRECTORY:="/var/bitcoin/wallets/"}
+
+mkdir -p \
+    "$BLOCKS_DIRECTORY" \
+    "$DATA_DIRECTORY" \
+    "$WALLET_DIRECTORY"
 
 ARGS=" \
     --blocksdir=${BLOCKS_DIRECTORY} \
