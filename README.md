@@ -1,4 +1,4 @@
-# [bitcoin][Bitcoin Core]-docker
+# [bitcoin][Bitcoin Core]-container
 
 Container to run Bitcoin Core in full or pruned mode.
 
