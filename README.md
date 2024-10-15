@@ -19,47 +19,6 @@ The goal is to make wallets safer by keeping them isolated from the public inter
 | `WEBHOOK_ENDPOINT`         | Endpoint to receive JSON POST requests of Bitcoin Core notifications.                     |
 | `FORWARD_BITCOIN_RPC_PORT` | Public port to the Bitcoin Core RPC server.                                               |
 
-## Development
-
-### Preparation
-
-1. Start by cloning this repository to your machine 
-1. Copy the .env.example file to .env and [configure](#configuration) it.
-
-### Commands
-
-#### Setup
-
-Build the application. It will copy the .env.example file to .env if it could not be found.
-
-```shell
-make setup
-```
-
-#### Up
-
-Start the application.
-
-```shell
-make up
-```
-
-#### Down
-
-Stop the application.
-
-```shell
-make down
-```
-
-#### Shell
-
-Interact with the application.
-
-```shell
-make shell
-```
-
 ## Attribution
 
 - [Bitcoin Core] ([License](https://raw.githubusercontent.com/bitcoin/bitcoin/master/COPYING))
