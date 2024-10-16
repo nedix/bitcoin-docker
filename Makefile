@@ -1,12 +1,12 @@
 setup:
 	@test -e .env || cp .env.example .env
-	@docker build . --tag=bitcoin --progress=plain
+	@docker build --progress=plain -f Containerfile -t bitcoin .
 
-up: port = 8332
+up: PORT = 8332
 up:
 	@docker run --rm --name bitcoin \
         --env-file .env \
-        -p 127.0.0.1:$(port):8332 \
+        -p 127.0.0.1:$(PORT):8332 \
         bitcoin
 
 down:
