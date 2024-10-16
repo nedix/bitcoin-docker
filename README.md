@@ -1,4 +1,4 @@
-# [bitcoin][Bitcoin Core]-container
+# [bitcoin-container](https://github.com/nedix/bitcoin-container)
 
 Container to run Bitcoin Core in full or pruned mode.
 
